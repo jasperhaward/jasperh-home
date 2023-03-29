@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact"
+    },
+    "include": ["src"]
+}
