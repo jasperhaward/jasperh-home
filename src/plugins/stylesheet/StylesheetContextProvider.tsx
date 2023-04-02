@@ -1,6 +1,6 @@
 import * as path from "path";
 import { ComponentChildren } from "preact";
-import { StylesheetContext } from "./StylesheetContext";
+import { StylesheetContext } from ".";
 
 export interface StylesheetContextProviderProps {
     filename: string;

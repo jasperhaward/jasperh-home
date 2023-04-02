@@ -4,7 +4,12 @@
         "module": "CommonJS",
         "moduleResolution": "node",
         "jsx": "react-jsx",
-        "jsxImportSource": "preact"
+        "jsxImportSource": "preact",
+        "paths": {
+            "@plugins/*": ["./src/plugins/*"],
+            "@components": ["./src/components/index"],
+            "@pages/*": ["./src/pages/*"],
+        }
     },
     "include": ["src"]
 }

@@ -3,9 +3,9 @@ import * as path from "path";
 import { VNode } from "preact";
 import { render } from "preact-render-to-string";
 
+import { AssetsContextProvider } from "@plugins/assets";
+import { StylesheetContextProvider } from "@plugins/stylesheet";
 import routes from "./routes";
-import { AssetsContextProvider } from "./plugins/assets";
-import { StylesheetContextProvider } from "./plugins/stylesheet";
 
 export interface PageProps {
     route: string;

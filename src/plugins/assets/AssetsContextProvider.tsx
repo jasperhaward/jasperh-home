@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { ComponentChildren } from "preact";
 
-import { AssetsContext } from "./AssetsContext";
+import { AssetsContext } from ".";
 
 export interface AssetsContextProviderProps {
     sourceDirectory: string;

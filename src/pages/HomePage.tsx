@@ -1,7 +1,7 @@
-import { useAsset } from "../plugins/assets";
-import { styled } from "../plugins/styled";
-import { useStylesheet } from "../plugins/stylesheet";
-import { Document } from "../components/Document";
+import { useAsset } from "@plugins/assets";
+import { useStylesheet } from "@plugins/stylesheet";
+import { styled } from "@plugins/styled";
+import { Document } from "@components";
 
 export interface HomePageProps {
     route: string;

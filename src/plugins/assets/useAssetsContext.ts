@@ -1,5 +1,5 @@
 import { useContext } from "preact/hooks";
-import { AssetsContext } from "./AssetsContext";
+import { AssetsContext } from ".";
 
 export function useAssetsContext() {
     const assetsContext = useContext(AssetsContext);

@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { useStyleSheetContext } from "./useStylesheetContext";
+import { useStyleSheetContext } from ".";
 
 export interface Stylesheet {
     filename: string;

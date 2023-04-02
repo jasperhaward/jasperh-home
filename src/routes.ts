@@ -1,5 +1,5 @@
+import HomePage from "@pages/HomePage";
 import { RouteConfig } from "./build";
-import HomePage from "./pages/HomePage";
 
 const routes: RouteConfig[] = [
     {

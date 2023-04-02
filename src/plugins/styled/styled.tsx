@@ -1,6 +1,6 @@
 import type { JSX } from "preact/jsx-runtime";
 
-import { useStylesheet } from "../stylesheet";
+import { useStylesheet } from "@plugins/stylesheet";
 import { createHash } from "./utils";
 
 /**

@@ -1,5 +1,5 @@
 import { useContext } from "preact/hooks";
-import { StylesheetContext } from "./StylesheetContext";
+import { StylesheetContext } from ".";
 
 export function useStyleSheetContext() {
     const stylesheetContext = useContext(StylesheetContext);

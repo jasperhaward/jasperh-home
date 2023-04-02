@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { useAssetsContext } from "./useAssetsContext";
+import { useAssetsContext } from ".";
 
 export interface Asset {
     path: string;

@@ -1,7 +1,7 @@
 import { ComponentChildren } from "preact";
 
-import { useAsset } from "../plugins/assets";
-import { Stylesheet } from "../plugins/stylesheet";
+import { useAsset } from "@plugins/assets";
+import { Stylesheet } from "@plugins/stylesheet";
 
 export interface DocumentProps {
     title: string;
