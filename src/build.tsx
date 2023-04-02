@@ -4,9 +4,9 @@ import { VNode } from "preact";
 import { render } from "preact-render-to-string";
 
 import { buildAndSaveStyles } from "./plugins/styled/styled";
+import { AssetsContextProvider } from "./plugins/assets";
 import { Document } from "./components/Document";
 import { HomePage } from "./pages/HomePage";
-import { buildAssets } from "./plugins/assets";
 
 export interface PageConfig {
     route: string;
@@ -16,43 +16,34 @@ export interface PageConfig {
 const pages: PageConfig[] = [{ route: "index", page: HomePage }];
 
 for (const { route, page: Page } of pages) {
-    const page = <Page route={route} />;
+    // const page = <Page route={route} />;
 
-    // render page to populate styles
-    render(page);
+    // // render page to populate styles
+    // render(page);
 
-    const rootDir = getRootDir();
-    const srcDir = getSrcDir(rootDir);
-    const buildDir = createBuildDir(rootDir);
+    const sourceDirectory = path.resolve(__dirname, "../src");
+    const buildDirectory = path.resolve(__dirname, "../build");
 
-    const stylesheet = buildAndSaveStyles(buildDir, route);
-    buildAssets(srcDir, buildDir);
+    if (fs.existsSync(buildDirectory)) {
+        fs.rmSync(buildDirectory, { recursive: true, force: true });
+    }
+
+    fs.mkdirSync(buildDirectory);
+
+    const stylesheet = buildAndSaveStyles(buildDirectory, route);
 
     const document = (
-        <Document title="Jasper H" stylesheet={stylesheet}>
-            {page}
-        </Document>
+        <AssetsContextProvider
+            sourceDirectory={sourceDirectory}
+            buildDirectory={buildDirectory}
+        >
+            <Document title="Jasper H" stylesheet={stylesheet}>
+                <Page route={route} />
+            </Document>
+        </AssetsContextProvider>
     );
 
     const html = render(document, null, { pretty: true });
 
-    fs.writeFileSync(`${buildDir}/${route}.html`, html);
-}
-
-function getRootDir() {
-    return path.resolve(__dirname, "../");
-}
-
-function getSrcDir(rootDir: string) {
-    return path.resolve(rootDir, "src");
-}
-
-function createBuildDir(rootDir: string) {
-    const buildDir = path.resolve(rootDir, "build");
-
-    if (!fs.existsSync(buildDir)) {
-        fs.mkdirSync(buildDir);
-    }
-
-    return buildDir;
+    fs.writeFileSync(`${buildDirectory}/${route}.html`, html);
 }
