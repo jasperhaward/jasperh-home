@@ -30,6 +30,10 @@ const DivUsingFunc = styled.div<DivUsingFuncProps>(
 `
 );
 
+const Link = styled.a(`
+    color: pink;
+`);
+
 export default function HomePage({ route }: HomePageProps) {
     const stylesheet = useStylesheet();
     const backgroundImg = useAsset("images/background.jpg");
@@ -43,6 +47,7 @@ export default function HomePage({ route }: HomePageProps) {
             <DivUsingFunc color="black">black</DivUsingFunc>
             <img src={backgroundImg.path} />
             <h1>Hello {route}</h1>
+            <Link href="links">Links</Link>
         </Document>
     );
 }
