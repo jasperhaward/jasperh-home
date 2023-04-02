@@ -32,7 +32,7 @@ for (const { route, page: Page } of routes) {
             buildDirectory={buildDirectory}
         >
             <StylesheetContextProvider
-                route={route}
+                filename={`${route}.css`}
                 buildDirectory={buildDirectory}
             >
                 <Page route={route} />

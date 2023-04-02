@@ -3,18 +3,16 @@ import { ComponentChildren } from "preact";
 import { StylesheetContext } from "./StylesheetContext";
 
 export interface StylesheetContextProviderProps {
-    route: string;
+    filename: string;
     buildDirectory: string;
     children: ComponentChildren;
 }
 
 export function StylesheetContextProvider({
-    route,
+    filename,
     buildDirectory,
     children,
 }: StylesheetContextProviderProps) {
-    const filename = `${route}.css`;
-
     const value = {
         filename,
         path: path.resolve(buildDirectory, filename),
