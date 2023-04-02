@@ -41,7 +41,7 @@ export default function HomePage({ route }: HomePageProps) {
             <AnotherDivAgain>ANOTHER DIV AGAIN</AnotherDivAgain>
             <DivUsingFunc color="yellow">yellow</DivUsingFunc>
             <DivUsingFunc color="black">black</DivUsingFunc>
-            <img src={backgroundImg} />
+            <img src={backgroundImg.path} />
             <h1>Hello {route}</h1>
         </Document>
     );

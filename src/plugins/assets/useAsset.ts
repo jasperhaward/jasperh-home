@@ -3,7 +3,11 @@ import * as path from "path";
 
 import { useAssetsContext } from "./useAssetsContext";
 
-export function useAsset(assetPath: string) {
+export interface Asset {
+    path: string;
+}
+
+export function useAsset(assetPath: string): Asset {
     const { sourceAssetsDirectory, buildAssetsDirectory } = useAssetsContext();
 
     const sourceAssetPath = path.resolve(sourceAssetsDirectory, assetPath);
@@ -26,5 +30,7 @@ export function useAsset(assetPath: string) {
 
     fs.copyFileSync(sourceAssetPath, buildAssetPath);
 
-    return `assets/${assetPath}`;
+    return {
+        path: `assets/${assetPath}`,
+    };
 }
