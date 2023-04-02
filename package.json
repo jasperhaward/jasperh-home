@@ -3,13 +3,14 @@
     "version": "0.0.1",
     "scripts": {
         "serve": "serve build",
-        "build": "ts-node src/build.tsx"
+        "build": "ts-node -r tsconfig-paths/register src/build.tsx"
     },
     "devDependencies": {
         "@types/node": "^18.15.7",
         "preact": "^10.13.1",
         "preact-render-to-string": "^5.2.6",
         "serve": "^14.2.0",
+        "tsconfig-paths": "^4.2.0",
         "ts-node": "^10.9.1",
         "typescript": "^5.0.2"
     }

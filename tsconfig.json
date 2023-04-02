@@ -5,10 +5,11 @@
         "moduleResolution": "node",
         "jsx": "react-jsx",
         "jsxImportSource": "preact",
+        "baseUrl": "./src",
         "paths": {
-            "@plugins/*": ["./src/plugins/*"],
-            "@components": ["./src/components/index"],
-            "@pages/*": ["./src/pages/*"],
+            "@plugins/*": ["plugins/*"],
+            "@components": ["components/index"],
+            "@pages/*": ["pages/*"],
         }
     },
     "include": ["src"]
