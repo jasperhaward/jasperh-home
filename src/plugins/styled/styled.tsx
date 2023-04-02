@@ -1,5 +1,6 @@
-import * as fs from "fs";
 import type { JSX } from "preact/jsx-runtime";
+
+import { useStylesheet } from "../stylesheet";
 import { createHash } from "./utils";
 
 /**
@@ -12,18 +13,18 @@ import { createHash } from "./utils";
  * }
  * ```
  */
-export const classes: string[] = [];
-
-function div<
+export function div<
     T extends JSX.HTMLAttributes<HTMLDivElement> = JSX.HTMLAttributes<HTMLDivElement>
 >(css: string | ((props: T) => string)) {
     function StyledComponent(props: T) {
+        const stylesheet = useStylesheet();
+
         const style = typeof css === "string" ? css : css(props);
 
         // hash css string to keep className the same across renders
         const generatedClassName = `div-${createHash(style)}`;
 
-        classes.push(`.${generatedClassName} {${style}}`);
+        stylesheet.append(`.${generatedClassName} {${style}}`);
 
         const className = props.className
             ? `${generatedClassName} ${props.className}`
@@ -33,15 +34,4 @@ function div<
     }
 
     return StyledComponent;
-}
-
-export default { div };
-
-export function buildAndSaveStyles(buildDir: string, route: string) {
-    const cssFile = `${route}.css`;
-    const cssOutput = classes.join("\n\n");
-
-    fs.writeFileSync(`${buildDir}/${cssFile}`, cssOutput);
-
-    return <link rel="stylesheet" href={cssFile} />;
 }
