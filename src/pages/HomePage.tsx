@@ -1,5 +1,7 @@
 import { useAsset } from "../plugins/assets";
-import styled from "../plugins/styled/styled";
+import { styled } from "../plugins/styled";
+import { useStylesheet } from "../plugins/stylesheet";
+import { Document } from "../components/Document";
 
 export interface HomePageProps {
     route: string;
@@ -28,11 +30,12 @@ const DivUsingFunc = styled.div<DivUsingFuncProps>(
 `
 );
 
-export function HomePage({ route }: HomePageProps) {
+export default function HomePage({ route }: HomePageProps) {
+    const stylesheet = useStylesheet();
     const backgroundImg = useAsset("images/background.jpg");
 
     return (
-        <div>
+        <Document title="Jasper H" stylesheet={stylesheet}>
             <Div>STYLED DIV</Div>
             <AnotherDiv>ANOTHER DIV</AnotherDiv>
             <AnotherDivAgain>ANOTHER DIV AGAIN</AnotherDivAgain>
@@ -40,6 +43,6 @@ export function HomePage({ route }: HomePageProps) {
             <DivUsingFunc color="black">black</DivUsingFunc>
             <img src={backgroundImg} />
             <h1>Hello {route}</h1>
-        </div>
+        </Document>
     );
 }

@@ -1,8 +1,9 @@
 import { ComponentChildren } from "preact";
+import { Stylesheet } from "../plugins/stylesheet";
 
 export interface DocumentProps {
     title: string;
-    stylesheet: ComponentChildren;
+    stylesheet: Stylesheet;
     children: ComponentChildren;
 }
 
@@ -11,7 +12,7 @@ export function Document({ title, stylesheet, children }: DocumentProps) {
         <html>
             <head>
                 <title>{title}</title>
-                {stylesheet}
+                <link rel="stylesheet" href={stylesheet.filename} />
             </head>
             <body>{children}</body>
         </html>

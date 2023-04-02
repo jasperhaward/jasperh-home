@@ -3,24 +3,17 @@ import * as path from "path";
 import { VNode } from "preact";
 import { render } from "preact-render-to-string";
 
-import { buildAndSaveStyles } from "./plugins/styled/styled";
-import { AssetsContextProvider } from "./plugins/assets";
+import routes from "./routes";
 import { Document } from "./components/Document";
-import { HomePage } from "./pages/HomePage";
+import { AssetsContextProvider } from "./plugins/assets";
+import { StylesheetContextProvider } from "./plugins/stylesheet";
 
-export interface PageConfig {
+export interface RouteConfig {
     route: string;
     page: (props: { route: string }) => VNode;
 }
 
-const pages: PageConfig[] = [{ route: "index", page: HomePage }];
-
-for (const { route, page: Page } of pages) {
-    // const page = <Page route={route} />;
-
-    // // render page to populate styles
-    // render(page);
-
+for (const { route, page: Page } of routes) {
     const sourceDirectory = path.resolve(__dirname, "../src");
     const buildDirectory = path.resolve(__dirname, "../build");
 
@@ -30,16 +23,19 @@ for (const { route, page: Page } of pages) {
 
     fs.mkdirSync(buildDirectory);
 
-    const stylesheet = buildAndSaveStyles(buildDirectory, route);
+    //const stylesheet = buildAndSaveStyles(buildDirectory, route);
 
     const document = (
         <AssetsContextProvider
             sourceDirectory={sourceDirectory}
             buildDirectory={buildDirectory}
         >
-            <Document title="Jasper H" stylesheet={stylesheet}>
+            <StylesheetContextProvider
+                route={route}
+                buildDirectory={buildDirectory}
+            >
                 <Page route={route} />
-            </Document>
+            </StylesheetContextProvider>
         </AssetsContextProvider>
     );
 
