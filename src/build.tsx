@@ -4,28 +4,29 @@ import { VNode } from "preact";
 import { render } from "preact-render-to-string";
 
 import routes from "./routes";
-import { Document } from "./components/Document";
 import { AssetsContextProvider } from "./plugins/assets";
 import { StylesheetContextProvider } from "./plugins/stylesheet";
 
-export interface RouteConfig {
+export interface PageProps {
     route: string;
-    page: (props: { route: string }) => VNode;
 }
 
+export interface RouteConfig {
+    route: string;
+    page: (props: PageProps) => VNode;
+}
+
+const sourceDirectory = path.resolve(__dirname, "../src");
+const buildDirectory = path.resolve(__dirname, "../build");
+
+if (fs.existsSync(buildDirectory)) {
+    fs.rmSync(buildDirectory, { recursive: true, force: true });
+}
+
+fs.mkdirSync(buildDirectory);
+
 for (const { route, page: Page } of routes) {
-    const sourceDirectory = path.resolve(__dirname, "../src");
-    const buildDirectory = path.resolve(__dirname, "../build");
-
-    if (fs.existsSync(buildDirectory)) {
-        fs.rmSync(buildDirectory, { recursive: true, force: true });
-    }
-
-    fs.mkdirSync(buildDirectory);
-
-    //const stylesheet = buildAndSaveStyles(buildDirectory, route);
-
-    const document = (
+    const page = (
         <AssetsContextProvider
             sourceDirectory={sourceDirectory}
             buildDirectory={buildDirectory}
@@ -39,7 +40,7 @@ for (const { route, page: Page } of routes) {
         </AssetsContextProvider>
     );
 
-    const html = render(document, null, { pretty: true });
+    const html = render(page, null, { pretty: true });
 
     fs.writeFileSync(`${buildDirectory}/${route}.html`, html);
 }
