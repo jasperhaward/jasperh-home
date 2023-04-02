@@ -2,16 +2,20 @@
     "name": "jasperh-home",
     "version": "0.0.1",
     "scripts": {
-        "serve": "serve build",
+        "dev": "concurrently npm:serve npm:watch",
+        "serve": "http-server build",
+        "watch": "nodemon --watch src --ext ts,tsx,css,json --exec npm run build",
         "build": "ts-node -r tsconfig-paths/register src/build.tsx"
     },
     "devDependencies": {
         "@types/node": "^18.15.7",
+        "concurrently": "^8.0.1",
+        "http-server": "^14.1.1",
+        "nodemon": "^2.0.22",
         "preact": "^10.13.1",
         "preact-render-to-string": "^5.2.6",
-        "serve": "^14.2.0",
-        "tsconfig-paths": "^4.2.0",
         "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.0.2"
     }
 }

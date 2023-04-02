@@ -44,3 +44,5 @@ for (const { route, page: Page } of routes) {
 
     fs.writeFileSync(`${buildDirectory}/${route}.html`, html);
 }
+
+console.log(`Successfully created build at '${buildDirectory}'\n`);
