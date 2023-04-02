@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { VNode } from "preact";
+import { FunctionComponent } from "preact";
 import { render } from "preact-render-to-string";
 
 import { AssetsContextProvider } from "@plugins/assets";
@@ -13,7 +13,7 @@ export interface PageProps {
 
 export interface RouteConfig {
     route: string;
-    page: (props: PageProps) => VNode;
+    page: FunctionComponent<PageProps>;
 }
 
 const sourceDirectory = path.resolve(__dirname, "../src");
