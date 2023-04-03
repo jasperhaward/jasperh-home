@@ -11,8 +11,19 @@ const Div = styled.div`
     color: red;
 `;
 
-const AnotherDiv = styled.div`
+const height = 24;
+const width = "24rem";
+
+interface AnotherDivProps {
+    hide: boolean;
+    children: string;
+}
+
+const AnotherDiv = styled.div<AnotherDivProps>`
+    height: ${height};
+    width: ${width};
     color: green;
+    display: ${(props) => (props.hide ? "none" : "block")};
 `;
 
 interface DivUsingFuncProps {
@@ -35,7 +46,8 @@ export default function HomePage({ route }: HomePageProps) {
     return (
         <Document title="Jasper H" stylesheet={stylesheet}>
             <Div>STYLED DIV</Div>
-            <AnotherDiv>ANOTHER DIV</AnotherDiv>
+            <AnotherDiv hide={false}>ANOTHER DIV</AnotherDiv>
+            <AnotherDiv hide>ANOTHER DIV HIDDEN</AnotherDiv>
             <DivUsingFunc color="yellow">yellow</DivUsingFunc>
             <DivUsingFunc color="black">black</DivUsingFunc>
             <img src={backgroundImg.path} />
