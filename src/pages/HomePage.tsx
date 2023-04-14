@@ -37,6 +37,10 @@ const DivUsingFunc = styled.div<DivUsingFuncProps>`
 
 const Link = styled.a`
     color: pink;
+
+    &:hover {
+        color: red;
+    }
 `;
 
 export default function HomePage({ route }: HomePageProps) {
