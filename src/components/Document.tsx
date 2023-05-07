@@ -19,7 +19,7 @@ export function Document({ title, stylesheet, children }: DocumentProps) {
                 <link rel="stylesheet" href={fonts.path} />
                 <link rel="stylesheet" href={stylesheet.filename} />
             </head>
-            <body>{children}</body>
+            {children}
         </html>
     );
 }

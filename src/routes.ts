@@ -6,6 +6,10 @@ const routes: RouteConfig[] = [
         route: "index",
         page: HomePage,
     },
+    {
+        route: "about",
+        page: HomePage,
+    },
 ];
 
 export default routes;

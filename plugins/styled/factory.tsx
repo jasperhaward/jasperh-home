@@ -1,28 +1,12 @@
 import { JSX } from "preact";
+import { useContext } from "preact/hooks";
 import * as sass from "sass";
 
 import { useStylesheet } from "@plugins/stylesheet";
+import { StyledTaggedTemplateExpression } from "./types";
 import { createHash } from "./utils";
 import { toHTMLAttributes } from "./attributes";
-
-export type PropExpression<P> = (props: P) => string | number;
-/** 
- * Possible expressions in a `StyledComponent`'s tagged template string.
- * @example 
- * ```ts
-    const height = "24 rem"; 
-    const width = 24; 
-    const Div = styled.div`
-        height: ${height}; // string expression
-        width: ${width}; // number expression, shorthand for `24px`
-        color: ${(props) => props.color}; // prop expression
-    `;
-    ```
- */
-export type StyledTaggedTemplateExpression<P> =
-    | string
-    | number
-    | PropExpression<P>;
+import { StyledContext } from "./StyledContext";
 
 /**
  * Creates a tag function for an element of `type`.
@@ -43,13 +27,17 @@ export function factory<T extends keyof JSX.IntrinsicElements>(type: T) {
     ) {
         function StyledComponent(props: P) {
             const stylesheet = useStylesheet();
+            const { classNames } = useContext(StyledContext);
 
             const scss = createScss(strings, expressions, props);
             const className = createClassName(type, scss);
 
-            const result = sass.compileString(`.${className} {${scss}}`);
+            if (!classNames.includes(className)) {
+                const result = sass.compileString(`.${className} {${scss}}`);
 
-            stylesheet.append(result.css);
+                stylesheet.append(result.css);
+                classNames.push(className);
+            }
 
             const attributes = toHTMLAttributes(props);
 
@@ -86,35 +74,21 @@ export function createScss<P>(
         const expression = expressions[index];
 
         if (expression) {
-            scss += buildExpression(expression, props);
+            if (typeof expression === "function") {
+                scss += `${expression(props)}`;
+            } else {
+                scss += `${expression}`;
+            }
         }
     });
 
     return scss;
 }
 
-export function buildExpression<P>(
-    expression: StyledTaggedTemplateExpression<P>,
-    props: P
-) {
-    if (typeof expression === "function") {
-        const value = expression(props);
-
-        if (typeof value === "number") {
-            return `${value}px`;
-        } else {
-            return value;
-        }
-    } else if (typeof expression === "number") {
-        return `${expression}px`;
-    } else {
-        return expression;
-    }
-}
-
 /**
  * Creates a `StyledComponent`'s className. Hashes the SCSS styling to keep
- * the className the same across renders.
+ * the className the same across renders, needed to determine if a CSS class
+ * has already been inserted into the stylesheet.
  * @returns className - eg `.div-e70a8756`
  */
 export function createClassName(

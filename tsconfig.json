@@ -5,12 +5,15 @@
         "moduleResolution": "node",
         "jsx": "react-jsx",
         "jsxImportSource": "preact",
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "paths": {
-            "@plugins/*": ["plugins/*"],
-            "@components": ["components/index"],
-            "@pages/*": ["pages/*"],
+            "@plugins/*": ["plugins/"],
+            "@components": ["src/components/index"],
+            "@context": ["src/context/index"],
+            "@config": ["src/config"],
+            "@pages/*": ["src/pages/*"],
+            "@styles": ["src/styles/index"],
         }
     },
-    "include": ["src"]
+    "include": ["src", "plugins"]
 }

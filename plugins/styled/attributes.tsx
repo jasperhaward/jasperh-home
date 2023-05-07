@@ -10,6 +10,8 @@ export type HTMLAttributes = {
  */
 export const attributes: HTMLAttributes = {
     children: true,
+    target: true,
+    rel: true,
     href: true,
     onClick: true,
     onChange: true,
@@ -26,6 +28,7 @@ export function isHTMLAttributeValue<K extends keyof JSX.HTMLAttributes>(
     return (
         typeof value === "number" ||
         typeof value === "boolean" ||
+        typeof value === "function" ||
         typeof value === "string"
     );
 }
@@ -41,7 +44,8 @@ export function toHTMLAttributes<P>(props: P): JSX.HTMLAttributes {
     for (const key in props) {
         const value = props[key];
 
-        if (isHTMLAttribute(key) && isHTMLAttributeValue(key, value)) {
+        if (isHTMLAttribute(key)) {
+            // @ts-ignore
             attributes[key] = value;
         } else {
             console.log(`Omitted prop '${key}' of type '${typeof value}'`);

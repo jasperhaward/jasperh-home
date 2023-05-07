@@ -4,10 +4,13 @@
     "scripts": {
         "dev": "concurrently npm:serve npm:watch",
         "serve": "http-server build",
-        "watch": "nodemon --watch src --ext ts,tsx,css,json --exec npm run build",
+        "watch": "nodemon --watch src --watch plugins --ext ts,tsx,css,json --exec npm run build",
         "build": "ts-node -r tsconfig-paths/register src/build.tsx"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.4.0",
+        "@fortawesome/free-brands-svg-icons": "^6.4.0",
+        "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@types/node": "^18.15.7",
         "concurrently": "^8.0.1",
         "http-server": "^14.1.1",
